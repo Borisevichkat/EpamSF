@@ -1,0 +1,18 @@
+public class SelectWithQueueWT implements Queueable{
+    
+  public SelectWithQueue(){
+  }
+    
+  public void execute(QueueableContext context) {
+       
+    List<Contact> contactToUpdate = [SELECT Id, Is_Synced__c, Processed_By_Queue__c 
+                                      FROM Contact
+                                      WHERE Account.BillingStreet != NULL or Account.BillingCity !=Null OR Account.BillingState != Null OR Account.BillingPostalCode != Null ];
+    for(Contact c : contactToUpdate){
+        c.is_Synced__c = false;
+        c.Processed_By_Queue__c = true;
+    }
+    update contactToUpdate;
+  }
+
+}

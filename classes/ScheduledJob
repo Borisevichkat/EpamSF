@@ -1,0 +1,9 @@
+global class ScheduledJob implements Schedulable {
+	global void execute(SchedulableContext sc) {
+    BatchJobWithQueryLocator b = new BatchJobWithQueryLocator(); 
+    database.executebatch(b);
+    BatchJobWithIterable c = new BatchJobWithIterable(); 
+    database.executebatch(c);
+      
+  }
+}

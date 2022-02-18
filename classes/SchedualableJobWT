@@ -1,0 +1,10 @@
+global class SchedualableJobWT implements Schedulable {
+    
+  global void execute(SchedulableContext sc) {
+    SelectWithBatchWT b = new SelectWithBatchWT(); 
+    database.executebatch(b);
+    
+    SelectWithIterableBatchWT c = new SelectWithIterableBatchWT();
+    database.executebatch(c); 
+  } 
+}

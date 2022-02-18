@@ -1,0 +1,20 @@
+public class SelectWithFutureMethodWT {
+
+  @future
+  public static void updateContacts(){
+    List<Account> accs = [SELECT Id, BillingAddress FROM Account LIMIT 150];
+    Set<Id> accsWithBillingAddr= new Set<Id>();
+    for(Account a : accs){
+        if(a.BillingAddress != NULL){
+    accsWithBillingAddr.add(a.Id);
+        }
+    }
+    List <Contact> contactsToUpdate = [SELECT Id FROM Contact WHERE AccountId in: accsWithBillingAddr];
+    for(Contact c : contactsToUpdate){
+        c.is_Synced__c = false;
+        c.Processed_by_future__c = true;
+    }
+    update contactsToUPdate;
+  }
+
+}
